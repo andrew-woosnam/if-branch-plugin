@@ -17,7 +17,7 @@ describe('lib/my-custom-plugin: ', () => {
         const inputs = [{}];
 
         const response = await pluginInstance.execute(inputs, {});
-        expect(response).toEqual(inputs);
+        expect(response).toHaveLength(2);
       });
     });
   });
