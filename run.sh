@@ -14,4 +14,6 @@ npm link if-sample-plugin
 MANIFEST_PATH="$1"
 
 # Run the command with the provided manifest path
-ie --manifest "$MANIFEST_PATH" | sed -n '/{/,$p' | jq . > "outputs/$(basename "$MANIFEST_PATH")"
+ie --manifest "$MANIFEST_PATH" >outputs/stdout.txt 2>outputs/stderr.txt | sed -n '/{/,$p' | jq . > "outputs/$(basename "$MANIFEST_PATH")"
+
+cat outputs/stdout.txt
