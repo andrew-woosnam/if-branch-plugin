@@ -14,14 +14,9 @@ export const MyCustomPlugin = (
   const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
     return inputs.flatMap(input => {
       // your logic here
-      globalConfig;
 
-      // Duplicate the input object
-      const inputCopy1 = {...input, 'custom-tag': 'A'};
-      const inputCopy2 = {...input, 'custom-tag': 'B'};
-
-      // Return an array containing both copies
-      return [inputCopy1, inputCopy2];
+      // Return the modified input
+      return [input];
     });
   };
 
