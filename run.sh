@@ -6,6 +6,10 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
+npm run build
+npm link
+npm link if-sample-plugin
+
 # Assign the first argument to a variable
 MANIFEST_PATH="$1"
 
