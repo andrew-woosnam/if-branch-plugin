@@ -1,9 +1,7 @@
 import {YourGlobalConfig} from './types';
 import {PluginInterface, PluginParams} from '../types/interface';
 
-export const MyCustomPlugin = (
-  globalConfig: YourGlobalConfig
-): PluginInterface => {
+export const Branch = (globalConfig: YourGlobalConfig): PluginInterface => {
   const metadata = {
     kind: 'execute',
   };

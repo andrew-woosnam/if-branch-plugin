@@ -8,13 +8,13 @@ Here can be implementation details of the plugin. For example which API is used,
 
 ## Usage
 
-To run the `<YOUR-CUSTOM-PLUGIN>`, an instance of `PluginInterface` must be created. Then, the plugin's `execute()` method can be called, passing required arguments to it.
+To run `Branch`, an instance of `PluginInterface` must be created. Then, the plugin's `execute()` method can be called, passing required arguments to it.
 
 This is how you could run the model in Typescript:
 
 ```typescript
 async function runPlugin() {
-  const newModel = await new MyCustomPlugin().configure(params);
+  const newModel = await new Branch().configure(params);
   const usage = await newModel.calculate([
     {
       timestamp: '2021-01-01T00:00:00Z',
@@ -49,12 +49,10 @@ description: loads plugin
 tags: null
 initialize:
   plugins:
-    my-custom-plugin:
-      method: MyCustomPlugin
-      path: "<name-field-from-package.json>"
-      global-config:
-        ...
-...
+    branch:
+      method: Branch
+      path: '<name-field-from-package.json>'
+      global-config: ...
 ```
 
 ### Using directly from Github
@@ -76,8 +74,8 @@ description: loads plugin
 tags: null
 initialize:
   plugins:
-    my-custom-plugin:
-      method: MyCustomPlugin
+    branch:
+      method: Branch
       path: https://github.com/my-repo/my-model
       global-config:
         ...

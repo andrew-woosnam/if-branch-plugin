@@ -1,11 +1,11 @@
-import {MyCustomPlugin} from '.';
+import {Branch} from '.';
 import {PluginInterface} from '../types/interface';
 import {YourGlobalConfig} from './types';
 
 async function runPlugin() {
   const cfg: YourGlobalConfig = {};
 
-  const newModel: PluginInterface = MyCustomPlugin(cfg);
+  const newModel: PluginInterface = Branch(cfg);
   const usage = await newModel.execute([
     {
       timestamp: '2021-01-01T00:00:00Z',

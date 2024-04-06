@@ -1,9 +1,9 @@
-import {MyCustomPlugin} from '../../../lib/my-custom-plugin';
+import {Branch} from '../../../lib/branch';
 
-describe('lib/my-custom-plugin: ', () => {
-  describe('MyCustomPlugin(): ', () => {
+describe('lib/branch: ', () => {
+  describe('Branch(): ', () => {
     it('has metadata field.', () => {
-      const pluginInstance = MyCustomPlugin({});
+      const pluginInstance = Branch({});
 
       expect(pluginInstance).toHaveProperty('metadata');
       expect(pluginInstance).toHaveProperty('execute');
