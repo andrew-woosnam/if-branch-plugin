@@ -8,7 +8,7 @@ fi
 
 npm run build
 npm link
-npm link if-sample-plugin
+npm link if-branch-plugin
 
 # Assign the first argument to a variable
 MANIFEST_PATH="$1"

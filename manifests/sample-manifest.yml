@@ -7,8 +7,8 @@ aggregation:
   type: 'both'
 initialize:
   plugins:
-    'if-sample-plugin':
-      path: 'if-sample-plugin'
+    'if-branch-plugin':
+      path: 'if-branch-plugin'
       method: execute
       global-config:
         branch-on:
