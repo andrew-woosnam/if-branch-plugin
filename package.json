@@ -10,6 +10,7 @@
     "url": "https://github.com/Green-Software-Foundation/if-plugin-template/issues/new?assignees=&labels=feedback&projects=&template=feedback.md&title=Feedback+-+"
   },
   "dependencies": {
+    "@grnsft/if-unofficial-plugins": "^0.3.0",
     "typescript": "^5.4.3"
   },
   "devDependencies": {
