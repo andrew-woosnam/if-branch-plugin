@@ -9,7 +9,7 @@ initialize:
   plugins:
     'if-branch-plugin':
       path: 'if-branch-plugin'
-      method: execute
+      method: Branch
       global-config:
         branch-on:
           region:
