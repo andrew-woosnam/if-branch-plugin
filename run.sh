@@ -16,6 +16,13 @@ MANIFEST_PATH="$1"
 mkdir -p "outputs"
 
 # Run the command with the provided manifest path
-ie --manifest "$MANIFEST_PATH" >outputs/stdout.txt 2>outputs/stderr.txt | sed -n '/{/,$p' | jq . > "outputs/$(basename "$MANIFEST_PATH")"
+ie --manifest "$MANIFEST_PATH" >outputs/stdout.txt 2>outputs/stderr.txt 
 
-cat outputs/stdout.txt
+# Use jq to parse the JSON and then convert it to YAML with yq
+cat outputs/stdout.txt | sed -n '/{/,$p' | jq . -r | yq e -P - > "outputs/$(basename "$MANIFEST_PATH" .yml).yml"
+
+# Check if the YAML file was created successfully
+if [ ! -s "outputs/$(basename "$MANIFEST_PATH" .yml).yml" ]; then
+    echo "The YAML file was not created successfully."
+    exit 3
+fi
