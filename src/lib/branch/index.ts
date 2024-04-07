@@ -7,45 +7,32 @@ export const Branch = (globalConfig: YourGlobalConfig): PluginInterface => {
   };
 
   /**
-   * Execute's strategy description here.
+   * Clones `inputs` with specified `branch-on` fields, returning originals plus
+   * altered copies with updated values substitued from `global-config` specification.
    */
   const execute = async (inputs: PluginParams[]): Promise<PluginParams[]> => {
-    // Check if 'branch-on' exists and is an object
     const branchOn = globalConfig['branch-on'];
     const hasBranchOn = typeof branchOn === 'object' && branchOn !== null;
 
     if (hasBranchOn) {
-      // Iterate over the keys of 'branch-on' object
-      for (const paramName in branchOn) {
-        if (Object.prototype.hasOwnProperty.call(branchOn, paramName)) {
-          // Check if each property is an array of strings
-          const isArray = Array.isArray(branchOn[paramName]);
-          const isArrayOfStrings =
-            isArray &&
-            branchOn[paramName].every((item: any) => typeof item === 'string');
-
-          if (!isArrayOfStrings) {
-            console.error(
-              `The property '${paramName}' is not an array of strings.`
-            );
-            return [];
-          }
-        }
-      }
       console.log('branch-on structure is valid');
-    } else {
-      console.error(
-        "'branch-on' is not an object or is not defined in globalConfig."
-      );
-      return [];
     }
 
-    return inputs.flatMap(input => {
-      // your logic here
-
-      // Return the modified input
-      return [input];
+    // New logic to duplicate inputs and replace values
+    const newInputs = [...inputs]; // Start with a copy of the original inputs
+    inputs.forEach(input => {
+      for (const key in branchOn) {
+        if (key in input) {
+          // Duplicate the input for each value in the "branchOn" array
+          branchOn[key].forEach((value: string) => {
+            const newInput = {...input, [key]: value};
+            newInputs.push(newInput); // Add the new input to the newInputs array
+          });
+        }
+      }
     });
+
+    return newInputs; // Return the new array with the duplicates included
   };
 
   return {
