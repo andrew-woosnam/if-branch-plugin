@@ -13,7 +13,7 @@ tree:
   children:
     child-1:
       pipeline:
-        - branch-on
+        # - branch-on
         - group-by
       config:
         group-by:
@@ -28,15 +28,7 @@ tree:
           region: uk-west
           duration: 1
           cpu/utilization: 10
-        - timestamp: '2023-12-12T00:00:01.000Z'
-          duration: 5
-          cpu/utilization: 20
-          region: uk-west
-        - timestamp: '2023-12-12T00:00:06.000Z'
-          duration: 7
-          cpu/utilization: 15
-          region: uk-west
-        - timestamp: '2023-12-12T00:00:13.000Z'
-          duration: 30
-          region: uk-west
-          cpu/utilization: 15
+        - timestamp: '2023-12-12T00:00:00.000Z'
+          region: uk-north
+          duration: 1
+          cpu/utilization: 10
