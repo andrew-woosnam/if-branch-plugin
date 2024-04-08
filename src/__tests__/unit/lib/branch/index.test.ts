@@ -18,28 +18,20 @@ describe('lib/branch: ', () => {
     describe('execute(): ', () => {
       /** Currently does not test for grouping */
       it('successfully applies branch to given input.', async () => {
-        const expectedResult = {
-          'uk-north': {
-            inputs: [
-              {
-                'cpu-util': 34,
-                duration: '15s',
-                region: 'uk-north',
-                timestamp: '2021-01-01T00:00:00Z',
-              },
-            ],
+        const expectedResult = [
+          {
+            'cpu-util': 34,
+            duration: '15s',
+            region: 'uk-south',
+            timestamp: '2021-01-01T00:00:00Z',
           },
-          'uk-south': {
-            inputs: [
-              {
-                'cpu-util': 34,
-                duration: '15s',
-                region: 'uk-south',
-                timestamp: '2021-01-01T00:00:00Z',
-              },
-            ],
+          {
+            'cpu-util': 34,
+            duration: '15s',
+            region: 'uk-north',
+            timestamp: '2021-01-01T00:00:00Z',
           },
-        };
+        ];
         const result = await branch.execute(
           [
             {

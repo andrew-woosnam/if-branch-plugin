@@ -54,7 +54,7 @@ export const Branch = (): PluginInterface => {
 
     // New logic to duplicate inputs and replace values
     const newInputs = [...inputs]; // Start with a copy of the original inputs
-    const branches = Array<string>();
+    // const branches = Array<string>();
     inputs.forEach(input => {
       for (const key in validConfig) {
         if (key in input) {
@@ -73,23 +73,30 @@ export const Branch = (): PluginInterface => {
         }
       }
     });
-    const groupedInputs = newInputs.reduce((acc, input) => {
+
+    return newInputs;
+  };
+
+  // @ts-ignore
+  const groupInputs = (
+    newInputs: PluginParams[],
+    validConfig: Record<string, [any, ...any[]]>
+  ) =>
+    newInputs.reduce((acc, input) => {
+      const branches: Array<string> = new Array<string>();
       for (const key in validConfig) {
         if (!input[key]) {
           throw new InputValidationError(key);
         }
-
         branches.push(input[key]);
       }
       acc = {
         ...acc,
         ...appendGroup(input, acc, branches),
       };
-      return acc;
-    }, {}).children; // children refers to the inputs manifest structure
 
-    return groupedInputs; // Return the de-duplicated grouped arrays
-  };
+      return acc;
+    }, {}).children;
 
   /**
    * Validates config parameter for branch plugin
