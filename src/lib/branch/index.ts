@@ -51,7 +51,6 @@ export const Branch = (): PluginInterface => {
     config: Record<string, any[]>
   ): Promise<PluginParams[]> => {
     const validConfig = validateConfig(config);
-    console.log(validConfig);
 
     // New logic to duplicate inputs and replace values
     const newInputs = [...inputs]; // Start with a copy of the original inputs
