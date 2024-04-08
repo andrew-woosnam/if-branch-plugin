@@ -4,7 +4,7 @@ describe('lib/branch: ', () => {
   describe('Branch(): ', () => {
     it('has metadata field.', () => {
       const pluginInstance = Branch();
-
+      //test
       expect(pluginInstance).toHaveProperty('metadata');
       expect(pluginInstance).toHaveProperty('execute');
       expect(pluginInstance.metadata).toHaveProperty('kind');
