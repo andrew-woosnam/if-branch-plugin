@@ -1,8 +1,12 @@
 {
-  "extends": "./node_modules/gts/",
-  "rules": {
-    "@typescript-eslint/no-explicit-any": [
-      "off"
-    ]
-  }
+    "extends": "./node_modules/gts/",
+    "rules": {
+        "@typescript-eslint/no-explicit-any": [
+            "off"
+        ],
+        // Zod import is flagged as extraneous, must debug before removing.
+        "node/no-extraneous-import": [
+            "off"
+        ]
+    }
 }
