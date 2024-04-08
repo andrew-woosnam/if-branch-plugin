@@ -1,0 +1,28 @@
+name: branch-demo
+description:
+tags:
+initialize:
+  plugins:
+    ccf:
+      method: CloudCarbonFootprint
+      path: '@grnsft/if-unofficial-plugins'
+    branch-on:
+      path: 'if-branch-plugin'
+      method: Branch
+tree:
+  children:
+    child-1:
+      pipeline:
+        - branch-on
+        # - ccf
+      defaults:
+        cloud/vendor: aws
+        cloud/instance-type: m5n.large
+      config:
+        branch-on:
+          cpu/utilization:
+            - 33
+      inputs:
+        - timestamp: 2023-07-06T00:00
+          duration: 1
+          cpu/utilization: 10
