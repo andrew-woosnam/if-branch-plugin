@@ -1,5 +1,5 @@
-name: sample
-description:
+name: invalid-configuration
+description: A manifest to test validation functions
 tags:
 initialize:
   plugins:
@@ -13,8 +13,7 @@ tree:
         - branch-on
       config:
         branch-on:
-          region:
-            - uk-north
+          'region' # SB {str : any[]}
       defaults:
       inputs:
         - timestamp: '2023-12-12T00:00:00.000Z'
