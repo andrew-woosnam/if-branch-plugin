@@ -6,19 +6,25 @@ This plugin is currently under development and may undergo significant changes. 
 
 ## Plugin Overview
 
-Leveraging the IF framework's extensibility, the IF Branch Plugin introduces conditional input duplication. It scans the manifest's `global-config` for the `branch-on` directive, which dictates the creation of input variants based on specified fields and their new values.
+Leveraging the IF framework's extensibility, the IF Branch Plugin introduces conditional input duplication. It scans the manifest's `component-config` for the `branch-on` directive, which dictates the creation of input variants based on specified fields and their new values.
 
-For instance, to branch on the `region` field, the manifest's `global-config` would be:
+For instance, to branch on the `region` field, the manifest's `component-config` would be:
 
 ```
 plugins:
-  if-branch-plugin:
+  branch-on:
     path: if-branch-plugin
     method: Branch
-    global-config:
-      branch-on:
-        region:
-          - uk-north
+...
+tree:
+  children:
+    child-1:
+      pipeline:
+        - branch-on
+      config:
+        branch-on:
+          region:
+            - uk-north
 ```
 
 Upon execution, the plugin will process each input, checking for the presence of branch-on fields. When a match is found, it duplicates the input, substituting the original value with each listed in branch-on, thus expanding the input set for diverse scenario testing.
