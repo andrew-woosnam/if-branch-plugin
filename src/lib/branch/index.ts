@@ -12,6 +12,37 @@ export const Branch = (): PluginInterface => {
   };
 
   /**
+   * Creates structure to insert inputs by groups.
+   */
+  const appendGroup = (
+    input: PluginParams,
+    object: any,
+    branches: string[]
+  ): any => {
+    if (branches.length > 0) {
+      const branch = branches.shift() as string;
+
+      object.children = object.children ?? {};
+      object.children[branch] = object.children[branch] ?? {};
+
+      if (branches.length === 0) {
+        if (
+          object.children[branch].inputs &&
+          object.children[branch].inputs.length > 0
+        ) {
+          object.children[branch].inputs.push(input);
+        } else {
+          object.children[branch].inputs = [input];
+        }
+      }
+
+      appendGroup(input, object.children[branch], branches);
+    }
+
+    return object;
+  };
+
+  /**
    * Clones `inputs` with specified `branch-on` fields, returning originals plus
    * altered copies with updated values substitued from `component-config` specification.
    */
@@ -24,6 +55,7 @@ export const Branch = (): PluginInterface => {
 
     // New logic to duplicate inputs and replace values
     const newInputs = [...inputs]; // Start with a copy of the original inputs
+    const branches = Array<string>();
     inputs.forEach(input => {
       for (const key in validConfig) {
         if (key in input) {
@@ -31,12 +63,33 @@ export const Branch = (): PluginInterface => {
           validConfig[key].forEach((value: string) => {
             const newInput = {...input, [key]: value};
             newInputs.push(newInput); // Add the new input to the newInputs array
+
+            /**
+             * Extract the branches that exist in the input since we don't
+             * branch if it does not already exist.
+             */
+            // if (!branches.includes(value)) { branches.push(value); }
+            // if (!branches.includes(input[key])) { branches.push(input[key]) };
           });
         }
       }
     });
+    const groupedInputs = newInputs.reduce((acc, input) => {
+      for (const key in validConfig) {
+        if (!input[key]) {
+          throw new InputValidationError(key);
+        }
 
-    return newInputs; // Return the new array with the duplicates included
+        branches.push(input[key]);
+      }
+      acc = {
+        ...acc,
+        ...appendGroup(input, acc, branches),
+      };
+      return acc;
+    }, {}).children; // children refers to the inputs manifest structure
+
+    return groupedInputs; // Return the de-duplicated grouped arrays
   };
 
   /**
