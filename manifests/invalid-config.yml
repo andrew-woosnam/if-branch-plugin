@@ -3,7 +3,7 @@ description: A manifest to test validation functions
 tags:
 initialize:
   plugins:
-    branch-on:
+    'branch-on':
       path: 'if-branch-plugin'
       method: Branch
 tree:

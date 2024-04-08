@@ -7,13 +7,9 @@ aggregation:
   type: 'both'
 initialize:
   plugins:
-    'if-branch-plugin':
+    'branch-on':
       path: 'if-branch-plugin'
       method: Branch
-      global-config:
-        branch-on:
-          region:
-            - uk-north
     'teads-curve':
       path: '@grnsft/if-unofficial-plugins'
       method: TeadsCurve
@@ -60,6 +56,9 @@ tree:
           group:
             - region
             - instance-type
+        branch-on:
+          region:
+            - uk-north
       defaults:
         cpu/thermal-design-power: 100
         grid/carbon-intensity: 800
