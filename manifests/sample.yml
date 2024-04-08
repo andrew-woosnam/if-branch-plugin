@@ -1,0 +1,30 @@
+name: sample manifest for demo purposes
+description:
+tags:
+initialize:
+  plugins:
+    ccf:
+      method: CloudCarbonFootprint
+      path: '@grnsft/if-unofficial-plugins'
+tree:
+  children:
+    child-1:
+      pipeline:
+        - ccf
+      defaults:
+        cloud/vendor: aws
+        cloud/instance-type: m5n.large
+      config:
+      inputs:
+        - timestamp: '2023-12-12T00:00:00.000Z'
+          duration: 5
+          cpu/utilization: 89
+        - timestamp: '2023-12-12T00:00:05.000Z'
+          duration: 5
+          cpu/utilization: 76
+        - timestamp: '2023-12-12T00:00:10.000Z'
+          duration: 5
+          cpu/utilization: 55
+        - timestamp: '2023-12-12T00:00:15.000Z'
+          duration: 5
+          cpu/utilization: 38
