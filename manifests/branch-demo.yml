@@ -14,15 +14,23 @@ tree:
     child-1:
       pipeline:
         - branch-on
-        # - ccf
+        - ccf
       defaults:
         cloud/vendor: aws
         cloud/instance-type: m5n.large
       config:
         branch-on:
+          cloud/instance-type:
+            - m5n.xlarge
+            - m5n.8xlarge
           cpu/utilization:
-            - 33
+            - 99
       inputs:
-        - timestamp: 2023-07-06T00:00
-          duration: 1
+        - timestamp: '2023-12-12T00:00:00.000Z'
+          region: uk-west
+          duration: 5
           cpu/utilization: 10
+        - timestamp: '2023-12-12T00:00:05.000Z'
+          duration: 5
+          cpu/utilization: 20
+          region: uk-west
