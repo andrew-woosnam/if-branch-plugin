@@ -20,6 +20,7 @@ export const Branch = (): PluginInterface => {
     config: Record<string, any[]>
   ): Promise<PluginParams[]> => {
     const validConfig = validateConfig(config);
+    console.log(validConfig);
 
     // New logic to duplicate inputs and replace values
     const newInputs = [...inputs]; // Start with a copy of the original inputs
@@ -42,20 +43,13 @@ export const Branch = (): PluginInterface => {
    * Validates config parameter for branch plugin
    */
   const validateConfig = (config: Record<string, any[]>) => {
-    if (!config) {
-      throw new InputValidationError('Config is not provided.');
-    }
-
     // { string: [...any]}
-    /** Removed zod import because following error
-     *  error  "zod" is extraneous  node/no-extraneous-import **/
     const schema = z.record(z.string(), z.any().array().nonempty());
 
     const validationResult = schema.safeParse(config);
     if (!validationResult.success) {
-      throw new InputValidationError(
-        'Failed validation' + validationResult.error
-      );
+      console.error(validationResult.error);
+      throw new InputValidationError('Branch: Failed validation');
     }
 
     return validationResult.data;
