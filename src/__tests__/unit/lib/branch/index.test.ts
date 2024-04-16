@@ -52,6 +52,10 @@ describe('lib/branch: ', () => {
       it('throws an error on improperly formed config.', async () => {
         const expectedMessage = 'Branch: Failed validation';
 
+        const mockConsoleError = jest
+          .spyOn(console, 'error')
+          .mockImplementation(() => {}); // suppress printing to stdErr
+
         expect.assertions(1);
 
         try {
@@ -73,6 +77,8 @@ describe('lib/branch: ', () => {
             new InputValidationError(expectedMessage)
           );
         }
+
+        mockConsoleError.mockRestore();
       });
     });
   });
