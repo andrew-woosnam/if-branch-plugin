@@ -1,4 +1,4 @@
-name: branch-demo
+name: sample manifest for demo purposes
 description:
 tags:
 initialize:
@@ -9,29 +9,20 @@ initialize:
     branch-on:
       path: 'if-branch-plugin'
       method: Branch
-    group-by:
-      path: 'builtin'
-      method: GroupBy
 tree:
   children:
     child-1:
       pipeline:
-        - branch-on
         - ccf
-        - group-by
+        - branch-on
       defaults:
         cloud/vendor: aws
-        cloud/instance-type: m5n.large
+        cloud/instance-type: m5n.xlarge
       config:
         branch-on:
           cloud/instance-type:
             - m5n.2xlarge
             - m5n.8xlarge
-          cpu/utilization:
-            - 99
-        group-by:
-          group:
-            - cloud/instance-type
       inputs:
         - timestamp: '2023-12-12T00:00:00.000Z'
           duration: 5
