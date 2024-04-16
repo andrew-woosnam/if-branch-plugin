@@ -7,32 +7,25 @@ export const Branch = (): PluginInterface => {
   };
 
   /**
-   * Clones `inputs` with specified `branch-on` fields, returning originals plus
-   * altered copies with updated values substitued from `component-config` specification.
+   * Clones items in `inputs` which contain any fields listed in `component-config`.
+   * Returns original inputs plus clones with substituted values according to `component-config`.
    */
   const execute = async (
     inputs: PluginParams[],
     config: Record<string, any[]>
   ): Promise<PluginParams[]> => {
-    const validConfig = validateConfig(config);
+    const spec = validateConfig(config);
 
-    // New logic to duplicate inputs and replace values
-    const newInputs = [...inputs]; // Start with a copy of the original inputs
-    // const branches = Array<string>();
+    const newInputs = [...inputs];
+
+    // For each field elected to branch on, iterate through additional
+    // fields listed and add an extra input ("branch") for each.
     inputs.forEach(input => {
-      for (const key in validConfig) {
-        if (key in input) {
-          // Duplicate the input for each value in the "validConfig" array
-          validConfig[key].forEach((value: string) => {
-            const newInput = {...input, [key]: value};
-            newInputs.push(newInput); // Add the new input to the newInputs array
-
-            /**
-             * Extract the branches that exist in the input since we don't
-             * branch if it does not already exist.
-             */
-            // if (!branches.includes(value)) { branches.push(value); }
-            // if (!branches.includes(input[key])) { branches.push(input[key]) };
+      for (const branchField in spec) {
+        if (branchField in input) {
+          spec[branchField].forEach((newField: string) => {
+            const newInput = {...input, [branchField]: newField};
+            newInputs.push(newInput);
           });
         }
       }
