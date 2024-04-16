@@ -11,3 +11,4 @@ build
 coverage
 .env
 outputs/
+.vscode/launch.json
