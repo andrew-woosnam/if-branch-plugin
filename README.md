@@ -31,6 +31,9 @@ Upon execution, the plugin will process each input, checking for the presence of
 
 Example manifests can be found in `/manifests` and tested with `run.sh` (described below).
 
+## Demo
+[Branch Plugin Demo Video](https://drive.google.com/file/d/1xRO7_kfKD85OeZXwuazXHT_1Fj0u133T/view?usp=sharing) (last updated: Apr 8, 2024)
+
 ## Testing with run.sh
 
 To test sample manifests using `run.sh`, follow these steps:
